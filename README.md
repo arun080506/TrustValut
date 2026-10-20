@@ -6,7 +6,7 @@ Node 22 · Express · PostgreSQL · no build step · one codebase that deploys t
 
 | | |
 |---|---|
-| Live URL (Render) | `https://trustvalut.onrender.com`  ← fill in after deploying |
+| Live URL (Render) | `https://trustvalut.onrender.com`|
 | Docs | [API.md](API.md) · [THREATS.md](THREATS.md) · [PROMPTS.md](PROMPTS.md) · [WRITEUP.md](WRITEUP.md) |
 
 ## Demo accounts (seeded when `SEED_DEMO=true`)
