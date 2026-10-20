@@ -9,7 +9,7 @@
       <stop offset="100%" stop-color="#b7f7e1"/>
     </linearGradient>
   </defs>
-  <rect x="2" y="2" width="60" height="60" rx="12" fill="#ffffff" opacity="0.08"/>
+
   <path d="M32 6 50 13v16c0 10.8-7.4 20.2-18 26.6C21.4 49.2 14 39.8 14 29V13L32 6Z" fill="url(#shieldGrad)"/>
   <path d="M32 17.2c-5.1 0-9.2 4-9.2 8.9v3.6h18.4v-3.6c0-4.9-4.1-8.9-9.2-8.9Zm-3.1 15.2h6.2v7.7h-6.2v-7.7Z" fill="#f3fffd" opacity="0.96"/>
   <path d="M23.5 35.4h17v8.1c0 5.5-4.1 10.1-8.8 12.1-4.7-2-8.8-6.6-8.8-12.1v-8.1Z" fill="url(#checkGrad)"/>

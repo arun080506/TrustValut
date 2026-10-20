@@ -46,7 +46,7 @@
     stats.appendChild(makeStat(adminSummary ? adminTotal : total, adminSummary ? 'Documents in workspace' : 'Accessible documents', 'workspace'));
     stats.appendChild(makeStat(owned, 'Owned by you', 'ownership'));
     stats.appendChild(makeStat(shared, 'Shared access', 'access'));
-    stats.appendChild(makeStat(user.role === 'admin' ? (adminSummary && adminSummary.counts ? adminSummary.counts.failedLogins24h : 0) : docs.filter(function (d) { return d.access === 'read' || d.access === 'edit'; }).length, user.role === 'admin' ? 'Failed sign-ins · 24h' : 'Current access level', user.role === 'admin' ? 'security' : 'status'));
+    stats.appendChild(makeStat(user.role === 'admin' ? (adminSummary && adminSummary.counts ? adminSummary.counts.failedLogins24h : 0) : docs.filter(function (d) { return d.access === 'read' || d.access === 'edit'; }).length, user.role === 'admin' ? 'Failed sign-ins · 24h' : 'Editable documents', 'security'));
     panel.appendChild(stats);
 
     var grid = make('div', 'role-grid');
@@ -67,9 +67,6 @@
       actionWrap.appendChild(renderAction('Shared with me', '#/shared'));
       actionWrap.appendChild(renderAction('Trash', '#/trash'));
     }
-    actionWrap.appendChild(renderAction('Account security', function () {
-      document.querySelector('.role-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, true));
     actionsCard.appendChild(actionWrap);
     grid.appendChild(actionsCard);
 
@@ -94,94 +91,6 @@
     grid.appendChild(activityCard);
 
     panel.appendChild(grid);
-
-    var formCard = make('div', 'role-card');
-    formCard.appendChild(make('h3', '', 'Profile & security'));
-    var form = make('form', 'role-form');
-    form.setAttribute('autocomplete', 'off');
-    var message = make('div', 'role-form-message');
-    var currentWrap = make('div', 'role-form-row');
-    var currentLabel = make('label', '', 'Current password');
-    var currentInput = document.createElement('input');
-    currentInput.type = 'password';
-    currentInput.name = 'current';
-    currentInput.autocomplete = 'current-password';
-    currentWrap.appendChild(currentLabel);
-    currentWrap.appendChild(currentInput);
-
-    var nextWrap = make('div', 'role-form-row');
-    var nextLabel = make('label', '', 'New password');
-    var nextInput = document.createElement('input');
-    nextInput.type = 'password';
-    nextInput.name = 'next';
-    nextInput.autocomplete = 'new-password';
-    nextWrap.appendChild(nextLabel);
-    nextWrap.appendChild(nextInput);
-
-    var confirmWrap = make('div', 'role-form-row');
-    var confirmLabel = make('label', '', 'Confirm password');
-    var confirmInput = document.createElement('input');
-    confirmInput.type = 'password';
-    confirmInput.name = 'confirm';
-    confirmInput.autocomplete = 'new-password';
-    confirmWrap.appendChild(confirmLabel);
-    confirmWrap.appendChild(confirmInput);
-
-    var submit = renderAction('Update password', null, false);
-    submit.type = 'submit';
-    submit.style.marginTop = '8px';
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      var current = currentInput.value.trim();
-      var next = nextInput.value;
-      var confirm = confirmInput.value;
-      if (!current || !next || !confirm) {
-        setMessage('Please fill in all password fields.', true);
-        return;
-      }
-      if (next !== confirm) {
-        setMessage('The new password and confirmation do not match.', true);
-        return;
-      }
-      if (!user || !user.role) {
-        setMessage('Your session is no longer valid. Please sign in again.', true);
-        return;
-      }
-      var req = {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ current: current, next: next })
-      };
-      var csrfToken = document.cookie.match(/(?:^|; )trustvault_csrf=[^;]+/);
-      if (csrfToken) {
-        req.headers['X-CSRF-Token'] = decodeURIComponent(csrfToken[0].split('=')[1]);
-      }
-      fetch('/api/auth/password', req).then(function (res) {
-        return res.text().then(function (text) {
-          var data = null; try { data = JSON.parse(text); } catch (_) {};
-          if (!res.ok) throw new Error((data && data.message) || 'Password update failed.');
-          form.reset();
-          setMessage('Password updated successfully. Your other active sessions were signed out.', false);
-        });
-      }).catch(function (err) {
-        setMessage(err.message || 'Password update failed.', true);
-      });
-    });
-
-    form.appendChild(currentWrap);
-    form.appendChild(nextWrap);
-    form.appendChild(confirmWrap);
-    form.appendChild(message);
-    form.appendChild(submit);
-
-    function setMessage(value, isError) {
-      message.textContent = value;
-      message.classList.toggle('error', Boolean(isError));
-    }
-
-    formCard.appendChild(form);
-    panel.appendChild(formCard);
     return panel;
   }
 

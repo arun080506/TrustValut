@@ -192,50 +192,6 @@
   color: #312e81;
 }
 
-.role-form {
-  display: grid;
-  gap: 12px;
-}
-
-.role-form-row {
-  display: grid;
-  gap: 6px;
-}
-
-.role-form-row label {
-  color: #68758b;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.role-form-row input {
-  width: 100%;
-  min-height: 42px;
-  padding: 9px 12px;
-  border-radius: 10px;
-  border: 1px solid rgba(24, 36, 58, 0.12);
-  background: rgba(244, 246, 251, 0.9);
-  color: #18243a;
-  font: inherit;
-}
-
-.role-form-row input:focus {
-  outline: 3px solid rgba(79, 70, 229, 0.18);
-  border-color: rgba(79, 70, 229, 0.35);
-}
-
-.role-form-message {
-  min-height: 20px;
-  font-size: 13px;
-  color: #16805d;
-}
-
-.role-form-message.error {
-  color: #c2414b;
-}
-
 @media (max-width: 760px) {
   .role-grid {
     grid-template-columns: 1fr;
