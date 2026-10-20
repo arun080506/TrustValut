@@ -18,18 +18,6 @@
     return 'Viewer';
   }
 
-  function renderAction(label, action, isSecondary) {
-    var button = document.createElement('button');
-    button.type = 'button';
-    button.className = isSecondary ? 'role-action-btn secondary' : 'role-action-btn';
-    button.textContent = label;
-    button.addEventListener('click', function () {
-      if (typeof action === 'function') action();
-      else if (typeof action === 'string') location.hash = action;
-    });
-    return button;
-  }
-
   function renderRoleSummary(user, docs, adminSummary) {
     var panel = make('section', 'role-quick-panel');
     var header = make('div', 'role-panel-header');
@@ -50,25 +38,6 @@
     panel.appendChild(stats);
 
     var grid = make('div', 'role-grid');
-
-    var actionsCard = make('div', 'role-card');
-    actionsCard.appendChild(make('h3', '', 'Quick actions'));
-    var actionWrap = make('div', 'role-actions');
-    if (user.role === 'owner') {
-      actionWrap.appendChild(renderAction('Upload a document', '#/upload'));
-      actionWrap.appendChild(renderAction('Open my documents', '#/docs'));
-      actionWrap.appendChild(renderAction('Shared with me', '#/shared'));
-    } else if (user.role === 'admin') {
-      actionWrap.appendChild(renderAction('Security overview', '#/admin'));
-      actionWrap.appendChild(renderAction('Audit trail', '#/admin/audit'));
-      actionWrap.appendChild(renderAction('User management', '#/admin/users'));
-    } else {
-      actionWrap.appendChild(renderAction('My documents', '#/docs'));
-      actionWrap.appendChild(renderAction('Shared with me', '#/shared'));
-      actionWrap.appendChild(renderAction('Trash', '#/trash'));
-    }
-    actionsCard.appendChild(actionWrap);
-    grid.appendChild(actionsCard);
 
     var activityCard = make('div', 'role-card');
     activityCard.appendChild(make('h3', '', 'Recent documents'));
