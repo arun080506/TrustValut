@@ -1,13 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
   <defs>
-    <linearGradient id="w1" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#0F172A" stop-opacity="0.10"/>
-      <stop offset="100%" stop-color="#0F766E" stop-opacity="0.14"/>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0f766e" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#1d4ed8" stop-opacity=".12"/>
     </linearGradient>
   </defs>
-  <g opacity="0.75">
-    <path d="M270 180 610 60l380 120-340 120-380-120Zm0 180 340 120 380-120V520L610 640 270 520V360Zm0 200 340 120 380-120v180L610 840 270 720V560Z" fill="url(#w1)"/>
-    <path d="M340 250h200l80 40 80-40h200v100l-160 60-160-60-160 60-160-60V250Z" fill="#0F172A" fill-opacity="0.04"/>
-    <path d="M590 390h210v120H590zM760 420h120v90H760z" fill="#0F172A" fill-opacity="0.06"/>
+  <g fill="none" stroke="url(#g)" stroke-width="10" opacity=".9">
+    <path d="M150 260L350 120L600 210L850 120L1050 260V440L850 560L600 470L350 560L150 440V260Z"/>
+    <path d="M600 280V610"/>
+    <path d="M350 330L600 470L850 330"/>
+    <path d="M420 680L600 540L780 680"/>
+    <path d="M270 720L600 430L930 720"/>
+  </g>
+  <g fill="#0f766e" fill-opacity=".08" font-family="Segoe UI, Arial, sans-serif" font-size="78" font-weight="700" letter-spacing="14">
+    <text x="220" y="760">TRUSTVAULT</text>
   </g>
 </svg>
