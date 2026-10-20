@@ -1,0 +1,51 @@
+# Render Blueprint: New > Blueprint > point at this repo. Creates a web service + a Postgres database.
+# After the first deploy, set SEED_DEMO to "false" (or delete it) if this will hold real documents.
+databases:
+  - name: trustvault-db
+    plan: free
+    databaseName: trustvault
+    user: trustvault
+
+services:
+  - type: web
+    name: trustvault
+    runtime: node
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: node src/server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: trustvault-db
+          property: connectionString
+      - key: FILE_MASTER_KEY      # 256-bit random, generated once by Render. BACK THIS UP (see README).
+        generateValue: true
+      - key: AUDIT_HMAC_KEY       # signs the audit chain. Different value from FILE_MASTER_KEY.
+        generateValue: true
+      - key: SEED_DEMO            # demo accounts for reviewers; public passwords, so never for real data
+        value: "true"
+
+  # Daily retention job: destroys the encrypted bytes of documents trashed > TRASH_RETENTION_DAYS ago.
+  - type: cron
+    name: trustvault-purge
+    runtime: node
+    plan: starter
+    schedule: "17 2 * * *"
+    buildCommand: npm ci --omit=dev
+    startCommand: node scripts/purge.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: trustvault-db
+          property: connectionString
+      - key: FILE_MASTER_KEY
+        sync: false
+      - key: AUDIT_HMAC_KEY
+        sync: false

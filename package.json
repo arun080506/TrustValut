@@ -1,0 +1,33 @@
+{
+  "name": "trustvault",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Secure document sharing with per-document grants and a tamper-evident audit trail",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch scripts/dev.js",
+    "test": "node --test --test-concurrency=1 \"test/*.test.js\"",
+    "seed": "node scripts/seed.js",
+    "migrate": "node scripts/migrate.js",
+    "keys": "node scripts/gen-keys.js",
+    "audit:verify": "node scripts/verify-audit.js",
+    "purge": "node scripts/purge.js",
+    "mutation": "node scripts/mutation-check.js",
+    "test:pg": "node scripts/test-pg.js",
+    "ui:smoke": "node scripts/ui-smoke.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "multer": "^2.0.2",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.3.0",
+    "embedded-postgres": "^18.4.0-beta.17"
+  }
+}
