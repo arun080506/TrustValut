@@ -5,7 +5,7 @@
   "description": "Secure document sharing with per-document grants and a tamper-evident audit trail",
   "main": "src/server.js",
   "engines": {
-    "node": ">=20"
+    "node": "24.x"
   },
   "scripts": {
     "start": "node src/server.js",
