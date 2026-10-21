@@ -53,4 +53,4 @@ app.use('/api', (req, res) => res.status(404).json({ error: 'not_found', message
 app.use(express.static(path.join(__dirname, '..', 'public'), { index: 'index.html', maxAge: 0, dotfiles: 'ignore' }));
 app.use(errorHandler);
 
-module.exports = { app };
+module.exports = app;
