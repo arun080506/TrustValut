@@ -1,5 +1,5 @@
 'use strict';
-/* TrustVault single-page UI. Presentation only: every permission decision is made by the server,
+/* Vaultora single-page UI. Presentation only: every permission decision is made by the server,
    hiding a button here is a convenience, never a control. All dynamic text is inserted with
    textContent (never innerHTML), and the CSP forbids inline script. */
 (function () {
@@ -112,7 +112,7 @@
       h('button', { type: 'submit' }, 'Sign in'), h('p', { class: 'login-footnote' }, 'Protected by encrypted storage and an audited access trail.'));
     return h('section', { class: 'login-page' },
       h('div', { class: 'login-story' },
-        h('div', { class: 'login-brand' }, h('img', { class: 'brand-logo', src: '/logo.svg', alt: '', 'aria-hidden': 'true' }), h('strong', null, 'TrustVault')),
+        h('div', { class: 'login-brand' }, h('img', { class: 'brand-logo', src: '/logo.svg', alt: '', 'aria-hidden': 'true' }), h('strong', null, 'Vaultora')),
         h('div', { class: 'login-story-copy' },
           h('p', { class: 'login-kicker' }, 'DOCUMENTS, WITH CONFIDENCE'),
           h('h2', null, 'Your work deserves a safer place.'),
