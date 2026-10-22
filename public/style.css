@@ -264,7 +264,7 @@ button.pick { margin: 3px 0; text-align: left; }
 .login-story::before { top: 22%; right: -170px; box-shadow: 0 0 0 26px rgba(238, 242, 255, .03), 0 0 0 54px rgba(238, 242, 255, .03); }
 .login-story::after { right: 3%; bottom: -260px; width: 390px; height: 390px; transform: rotate(26deg); }
 .login-brand, .login-story-copy, .login-promise { position: relative; z-index: 1; }
-.login-brand { display: inline-flex; align-items: center; gap: 11px; width: fit-content; font-size: 18px; letter-spacing: -.4px; }
+.login-brand { display: inline-flex; align-items: center; gap: 11px; width: fit-content; font-size: 23px; letter-spacing: -.4px; }
 .login-brand .brand-logo { width: 42px; height: 42px; }
 .login-story-copy { max-width: 430px; margin: 45px 0; }
 .login-story-copy h2 { max-width: 400px; margin: 12px 0 18px; color: #f7f8ff; font-size: clamp(38px, 5vw, 54px); letter-spacing: -1.8px; line-height: 1.06; }
