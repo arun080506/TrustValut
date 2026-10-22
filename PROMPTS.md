@@ -10,7 +10,7 @@ Tool used: Claude (Claude Code, Sonnet 5.5) for design, code and tests. Entries 
 
 See [CLAUDE.md](CLAUDE.md) in this repo. Honest note on its history: I wrote it at the **end** of the session, distilled from the corrections below. It was not loaded during the build. The one-line version of the original brief that drove the build:
 
-> Build TrustVault: Express + Postgres, one codebase deployable to Render and Vercel. Per-document grants, three roles, server-side authorisation on every route, immediate revocation, a tamper-evident audit trail including refused attempts, encrypted file storage, upload validation, an admin view, an advisor that suggests but never grants, and automated tests proving users cannot reach each other's documents. Then write THREATS.md honestly.
+> Build Vaultora: Express + Postgres, one codebase deployable to Render and Vercel. Per-document grants, three roles, server-side authorisation on every route, immediate revocation, a tamper-evident audit trail including refused attempts, encrypted file storage, upload validation, an admin view, an advisor that suggests but never grants, and automated tests proving users cannot reach each other's documents. Then write THREATS.md honestly.
 
 The most useful prompt pattern, reused several times: **"Remove control X and tell me which test fails. If none, that is the bug."**
 
