@@ -1,10 +1,10 @@
-# TrustVault
+# Vaultora
 
 Secure document sharing where the wrong person cannot read a file, and you can prove who did.
 
 Node 22 · Express · PostgreSQL · no build step · one codebase that deploys to **Render** and **Vercel**.
 
-| | |
+| | | |
 |---|---|
 | Live URL (Render) | `https://<your-service>.onrender.com`  ← fill in after deploying |
 | Live URL (Vercel) | `https://<your-project>.vercel.app`  ← fill in after deploying |
@@ -24,7 +24,7 @@ Seed layout: Sree owns *Salary letter* (nobody else), *Acme customer contract* (
 Yaswanth owns *Partner drawings* (Sasank: read) and *Regulator submission* (nobody else).
 Good first checks: sign in as Pavan and confirm you see only the Acme contract; as Sree remove Pavan's access and watch Pavan's next click fail; as Arun open **Audit trail → Refused only**.
 
-> The demo passwords are public by design. **Never run `SEED_DEMO=true` against a system holding real documents.** On startup, demo seeding migrates the six previous demo emails—including the former Sai owner login—and reconciles these exact demo accounts to the published names, emails and passwords. Changed credentials revoke active sessions and are recorded in the audit trail.
+> The demo passwords are public by design. **Never run `SEED_DEMO=true` against a system holding real documents.** On startup, demo seeding migrates the six previous demo emails—including the fo[...]
 
 ## Roles
 
@@ -53,8 +53,8 @@ Needs Node ≥ 20. No database server required for dev/test.
 
 ```bash
 npm run test:pg      # the same suite against a REAL PostgreSQL server (embedded, throw-away).
-                     # Postgres refuses to run as root; in a root container use:
-                     #   runuser -u nobody -- env HOME=/tmp PATH="$PATH" npm run test:pg
+                      # Postgres refuses to run as root; in a root container use:
+                      #   runuser -u nobody -- env HOME=/tmp PATH="$PATH" npm run test:pg
 npm run ui:smoke     # drives the real UI in headless Chromium; fails on any CSP/console error
 npm run mutation     # removes each security control in turn and proves the tests fail (see below)
 ```
@@ -63,7 +63,7 @@ npm run mutation     # removes each security control in turn and proves the test
 
 You need a PostgreSQL database in both cases. Secrets come from `npm run keys`.
 
-**Important, read once:** `FILE_MASTER_KEY` encrypts every file. If you lose it, every stored file is permanently unreadable. Keep a copy somewhere that is not the hosting dashboard. `AUDIT_HMAC_KEY` signs the audit chain; if it changes, old entries no longer verify.
+**Important, read once:** `FILE_MASTER_KEY` encrypts every file. If you lose it, every stored file is permanently unreadable. Keep a copy somewhere that is not the hosting dashboard. `AUDIT_HMAC_K[...]
 
 ### Render (web service + Postgres, one click)
 
@@ -72,7 +72,7 @@ You need a PostgreSQL database in both cases. Secrets come from `npm run keys`.
 3. When it is live, open `/api/health` (should return `{"ok":true}`), then sign in with a demo account.
 4. For real use: set `SEED_DEMO` to `false` and create real users from the admin screen (delete or deactivate the demo accounts first).
 
-Render's free Postgres expires after 30 days; use a paid instance for anything lasting. The purge cron job in `render.yaml` needs a paid cron plan; without it run `npm run purge` yourself or use the Vercel cron.
+Render's free Postgres expires after 30 days; use a paid instance for anything lasting. The purge cron job in `render.yaml` needs a paid cron plan; without it run `npm run purge` yourself or use t[...]
 
 ### Vercel (serverless) + Neon / Supabase / any Postgres
 
@@ -86,7 +86,7 @@ Vercel limits request bodies to about 4.5 MB, so the default upload cap is 4 MB.
 ### From a clean clone, by hand (any host with Node and Postgres)
 
 ```bash
-git clone <repo> && cd trustvault && npm ci --omit=dev
+git clone <repo> && cd vaultora && npm ci --omit=dev
 npm run keys                       # copy the output into your environment
 export NODE_ENV=production DATABASE_URL=postgres://... FILE_MASTER_KEY=... AUDIT_HMAC_KEY=...
 npm run migrate                    # optional: the server also migrates at boot
@@ -98,7 +98,7 @@ In production the app **refuses to start** if `DATABASE_URL`, `FILE_MASTER_KEY` 
 
 ## Database
 
-`db/schema.sql` is the whole schema and is idempotent (runs on every boot). Tables: `users`, `sessions`, `documents`, `document_versions` (encrypted bytes), `grants`, `ai_suggestions`, `audit_log`, `audit_head`.
+`db/schema.sql` is the whole schema and is idempotent (runs on every boot). Tables: `users`, `sessions`, `documents`, `document_versions` (encrypted bytes), `grants`, `ai_suggestions`, `audit_log[...]
 
 ## Operating it
 
@@ -110,11 +110,11 @@ In production the app **refuses to start** if `DATABASE_URL`, `FILE_MASTER_KEY` 
 | Retention purge | `npm run purge` (or the Render / Vercel cron). Destroys bytes, keeps metadata and audit |
 | Rotate `AUDIT_HMAC_KEY` / `FILE_MASTER_KEY` | Not supported in-place (see THREATS.md, accepted risk A1) |
 
-Log lines starting `AUDIT_ANCHOR <seq> <hash>` are printed on every audit write. Keep your platform's log drain: it is an independent copy of the chain head that catches someone deleting the newest rows *and* resetting the head.
+Log lines starting `AUDIT_ANCHOR <seq> <hash>` are printed on every audit write. Keep your platform's log drain: it is an independent copy of the chain head that catches someone deleting the newest[...]
 
 ## "Take one authorisation check out and run the tests"
 
-`npm run mutation` does it for you: 37 mutations, each deleting or weakening exactly one control (the grant lookup, the permission comparison, the revoked/expired filters, the viewer ceiling, CSRF, the session `active` check, the audit HMAC check, the DB triggers, the GCM binding, magic-byte validation…), then runs the suite on the mutated copy and requires failure. Result of the last run: **36/37 caught on PGlite**. The survivor is the audit-head row lock, which only a real multi-connection server can race; `npm run test:pg` kills it. (That same real-server test also found, and now guards, a genuine revocation race: see PROMPTS.md entry 4.)
+`npm run mutation` does it for you: 37 mutations, each deleting or weakening exactly one control (the grant lookup, the permission comparison, the revoked/expired filters, the viewer ceiling, CSR[...]
 
 ## Layout
 
@@ -130,3 +130,4 @@ test/                 53 tests: isolation, grants/revocation, audit tamper, uplo
 scripts/              migrate, seed, keys, audit verify, purge, mutation-check, test-pg, ui-smoke
 api/index.js          Vercel entry (same Express app)
 ```
+

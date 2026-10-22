@@ -1,5 +1,5 @@
 {
-  "name": "trustvault",
+  "name": "vaultora",
   "version": "1.0.0",
   "private": true,
   "description": "Secure document sharing with per-document grants and a tamper-evident audit trail",
