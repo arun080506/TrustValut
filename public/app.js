@@ -324,7 +324,7 @@
   function adminOverview() {
     var box = h('div', null,
       h('div', { class: 'page-intro' },
-        h('p', { class: 'eyebrow' }, 'TRUSTVAULT ADMINISTRATION'),
+        h('p', { class: 'eyebrow' }, 'VAULTORA ADMINISTRATION'),
         h('h1', null, 'Security overview'),
         h('p', null, 'A clear view of document access, account activity, and audit integrity. Use the tools below to investigate events and manage the workspace.')));
     show(box);
