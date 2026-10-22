@@ -71,6 +71,163 @@
     who.appendChild(pill(state.user.role, 'owner'));
   }
 
+  function adminStat(label, value) {
+    return h('div', { class: 'panel card' },
+      h('div', { class: 'muted' }, label),
+      h('div', { class: 'big' }, String(value))
+    );
+  }
+
+  function adminOverview() {
+    return api('GET', '/admin/summary').then(function (summary) {
+      var counts = summary.counts || {};
+      var totalUsers = Object.keys(counts).reduce(function (sum, key) {
+        return sum + (Number(counts[key]) || 0);
+      }, 0);
+      var alerts = (summary.alerts || []).map(function (alert) {
+        return h('li', null,
+          h('strong', null, alert.kind || 'Alert'),
+          h('div', null, alert.message || ''),
+          alert.who ? h('small', null, 'Who: ' + alert.who) : null
+        );
+      });
+      var recent = (summary.recentSensitive || []).map(function (entry) {
+        return h('li', null,
+          h('strong', null, entry.action || 'Event'),
+          h('div', null, (entry.actor_email || 'system') + ' • ' + (entry.ts || '')),
+          entry.detail ? h('small', null, JSON.stringify(entry.detail)) : null
+        );
+      });
+
+      show(h('section', { class: 'admin-page' },
+        h('h1', null, 'Admin overview'),
+        h('div', { class: 'stats' },
+          adminStat('Active users', totalUsers),
+          adminStat('Documents', counts.documents || 0),
+          adminStat('Active grants', counts.activeGrants || 0),
+          adminStat('Audit events', counts.auditEvents || 0),
+          adminStat('Denied actions (24h)', counts.refusals24h || 0),
+          adminStat('Failed logins (24h)', counts.failedLogins24h || 0)
+        ),
+        h('div', { class: 'admin-columns' },
+          h('div', { class: 'panel' },
+            h('h2', null, 'Security alerts'),
+            h('ul', null, alerts.length ? alerts : h('li', null, 'No active alerts.'))
+          ),
+          h('div', { class: 'panel' },
+            h('h2', null, 'Recent sensitive activity'),
+            h('ul', null, recent.length ? recent : h('li', null, 'No recent sensitive events.'))
+          )
+        )
+      ));
+    }).catch(function (err) {
+      toast(err.message, true);
+      show(h('section', { class: 'admin-page' },
+        h('h1', null, 'Admin overview'),
+        h('p', null, 'Unable to load the admin overview.')
+      ));
+    });
+  }
+
+  function adminAudit() {
+    return api('GET', '/admin/audit?limit=20').then(function (res) {
+      var rows = res.entries || [];
+      var items = rows.map(function (entry) {
+        return h('tr', null,
+          h('td', null, fmt(entry.ts)),
+          h('td', null, entry.actor_email || 'system'),
+          h('td', null, entry.action || '—'),
+          h('td', null, entry.outcome || '—'),
+          h('td', null, entry.doc_id || '—')
+        );
+      });
+      show(h('section', { class: 'admin-page' },
+        h('h1', null, 'Audit trail'),
+        h('table', null,
+          h('thead', null,
+            h('tr', null,
+              h('th', null, 'Time'),
+              h('th', null, 'Actor'),
+              h('th', null, 'Action'),
+              h('th', null, 'Outcome'),
+              h('th', null, 'Document')
+            )
+          ),
+          h('tbody', null, items.length ? items : h('tr', null, h('td', { colSpan: 5 }, 'No audit events found.')))
+        )
+      ));
+    }).catch(function (err) {
+      toast(err.message, true);
+      show(h('section', { class: 'admin-page' }, h('h1', null, 'Audit trail'), h('p', null, 'Unable to load the audit trail.')));
+    });
+  }
+
+  function adminUsers() {
+    return api('GET', '/admin/users').then(function (res) {
+      var users = res.users || [];
+      var rows = users.map(function (user) {
+        return h('tr', null,
+          h('td', null, user.email || '—'),
+          h('td', null, user.name || '—'),
+          h('td', null, user.role || '—'),
+          h('td', null, user.active ? 'Active' : 'Inactive'),
+          h('td', null, user.live_sessions || 0)
+        );
+      });
+      show(h('section', { class: 'admin-page' },
+        h('h1', null, 'Users'),
+        h('table', null,
+          h('thead', null,
+            h('tr', null,
+              h('th', null, 'Email'),
+              h('th', null, 'Name'),
+              h('th', null, 'Role'),
+              h('th', null, 'Status'),
+              h('th', null, 'Live sessions')
+            )
+          ),
+          h('tbody', null, rows.length ? rows : h('tr', null, h('td', { colSpan: 5 }, 'No users found.')))
+        )
+      ));
+    }).catch(function (err) {
+      toast(err.message, true);
+      show(h('section', { class: 'admin-page' }, h('h1', null, 'Users'), h('p', null, 'Unable to load users.')));
+    });
+  }
+
+  function adminDocs() {
+    return api('GET', '/admin/documents').then(function (res) {
+      var documents = res.documents || [];
+      var rows = documents.map(function (doc) {
+        return h('tr', null,
+          h('td', null, doc.name || '—'),
+          h('td', null, doc.owner_email || '—'),
+          h('td', null, doc.category || '—'),
+          h('td', null, doc.current_version || '—'),
+          h('td', null, fmt(doc.updated_at))
+        );
+      });
+      show(h('section', { class: 'admin-page' },
+        h('h1', null, 'Documents'),
+        h('table', null,
+          h('thead', null,
+            h('tr', null,
+              h('th', null, 'Name'),
+              h('th', null, 'Owner'),
+              h('th', null, 'Category'),
+              h('th', null, 'Version'),
+              h('th', null, 'Updated')
+            )
+          ),
+          h('tbody', null, rows.length ? rows : h('tr', null, h('td', { colSpan: 5 }, 'No documents found.')))
+        )
+      ));
+    }).catch(function (err) {
+      toast(err.message, true);
+      show(h('section', { class: 'admin-page' }, h('h1', null, 'Documents'), h('p', null, 'Unable to load documents.')));
+    });
+  }
+
   function route() {
     renderShell();
     if (!state.user) return show(loginView());
