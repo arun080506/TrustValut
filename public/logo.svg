@@ -1,17 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="TrustVault logo">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="shieldGrad" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#0f766e"/>
-      <stop offset="100%" stop-color="#10233d"/>
+    <linearGradient id="shieldBg" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7EE7D5"/>
+      <stop offset="1" stop-color="#2AC1A0"/>
     </linearGradient>
-    <linearGradient id="checkGrad" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#dffdf6"/>
-      <stop offset="100%" stop-color="#b7f7e1"/>
+    <linearGradient id="shieldInner" x1="14" y1="10" x2="50" y2="52" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B4E55"/>
+      <stop offset="1" stop-color="#0C3A48"/>
     </linearGradient>
   </defs>
-
-  <path d="M32 6 50 13v16c0 10.8-7.4 20.2-18 26.6C21.4 49.2 14 39.8 14 29V13L32 6Z" fill="url(#shieldGrad)"/>
-  <path d="M32 17.2c-5.1 0-9.2 4-9.2 8.9v3.6h18.4v-3.6c0-4.9-4.1-8.9-9.2-8.9Zm-3.1 15.2h6.2v7.7h-6.2v-7.7Z" fill="#f3fffd" opacity="0.96"/>
-  <path d="M23.5 35.4h17v8.1c0 5.5-4.1 10.1-8.8 12.1-4.7-2-8.8-6.6-8.8-12.1v-8.1Z" fill="url(#checkGrad)"/>
-  <path d="m24.8 40.1 5.4 5.4 9.5-11.5" stroke="#0f766e" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M32 6C41.24 6 50.48 12.26 50.48 24.7V27C50.48 38.52 42.16 48.3 32 57.5C21.84 48.3 13.52 38.52 13.52 27V24.7C13.52 12.26 22.76 6 32 6Z" fill="rgba(255,255,255,0.13)"/>
+  <path d="M32 10.2C39.48 10.2 46.5 15.1 46.5 25.4V27C46.5 35.8 40.46 43.8 32 51.3C23.54 43.8 17.5 35.8 17.5 27V25.4C17.5 15.1 24.52 10.2 32 10.2Z" fill="url(#shieldInner)"/>
+  <path d="M23.7 29.7C25.95 25.7 29.62 23.8 32 23.8C34.38 23.8 38.05 25.7 40.3 29.7L35.8 31.8C34.52 29.34 33.2 28.13 32 28.13C30.8 28.13 29.48 29.34 28.2 31.8L23.7 29.7Z" fill="url(#shieldBg)"/>
+  <path d="M23.1 34.4C27.08 37.1 29.7 38.5 32 38.5C34.3 38.5 36.92 37.1 40.9 34.4L42.8 38.8C38.66 42.2 35.08 44 32 44C28.92 44 25.34 42.2 21.2 38.8L23.1 34.4Z" fill="url(#shieldBg)"/>
 </svg>
