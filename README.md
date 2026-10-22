@@ -12,7 +12,6 @@ Node 22 · Express · PostgreSQL · no build step · one codebase that deploys t
 ## Demo accounts (seeded when `SEED_DEMO=true`)
 
 | Role | Email | Password |
-|---|---|---|
 | Administrator — Arun | `arun.admin@trustvault.demo` | `Arun-Demo-2026!` |
 | Document owner — Sree | `sree.owner@trustvault.demo` | `Sree-Demo-2026!` |
 | Document owner — Yaswanth | `yaswanth.owner@trustvault.demo` | `Yaswanth-Demo-2026!` |
