@@ -1,13 +1,9 @@
 'use strict';
-// Loads the demo accounts and documents into an EMPTY database. Usage: npm run seed
-process.env.SEED_DEMO = 'true';
+// Destroys the encrypted bytes of documents that have sat in the trash past the retention window.
+// Run daily (Render Cron Job) or use the Vercel cron in vercel.json. Usage: npm run purge
 const { getDb } = require('../src/db');
-const { DEMO } = require('../src/seed');
+const { purgeExpired } = require('../src/purge');
 
 getDb()
-  .then(async (db) => {
-    console.log('Demo data present. Accounts:');
-    for (const u of Object.values(DEMO)) console.log(`  ${u.role.padEnd(6)} ${u.email}  ${u.password}`);
-    await db.close();
-  })
+  .then(async (db) => { console.log(`Purged ${await purgeExpired(db)} document(s).`); await db.close(); })
   .catch((e) => { console.error(e.message); process.exit(1); });
