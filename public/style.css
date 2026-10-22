@@ -204,7 +204,7 @@ tr.click:hover { background: var(--soft); }
 .section-heading h2 { margin: 0 0 4px; }
 .section-heading p { margin: 0; color: var(--muted); font-size: 13px; }
 .feature-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.feature-card { display: flex; min-height: 190px; flex-direction: column; align-items: flex-start; padding: 21px; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: 16px; text-decoration: none; box-shadow: 0 2px 10px rgba(36,50,87,.02); transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease; }
+.feature-card { display: flex; min-height: 190px; flex-direction: column; align-items: flex-start; padding: 21px; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: 16px; text-decoration: none; box-shadow: 0 4px 18px rgba(36, 50, 87, .035); transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease; }
 .feature-card:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); box-shadow: var(--shadow); }
 .feature-card:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 35%, transparent); outline-offset: 3px; }
 .feature-card h3 { margin: 0 0 8px; color: var(--ink); font-size: 16px; }
@@ -216,7 +216,7 @@ tr.click:hover { background: var(--soft); }
 .overview-content { padding: 20px; }
 .overview-content h2 { margin: 0 0 14px; }
 .empty-state { margin: 0; padding: 18px; color: var(--muted); background: var(--bg); border: 1px dashed var(--line); border-radius: 12px; font-size: 13px; }
-.alert { margin-bottom: 10px; padding: 13px 16px; background: color-mix(in srgb, var(--bad) 7%, var(--card)); border: 1px solid color-mix(in srgb, var(--bad) 25%, var(--line)); border-left: 4px solid var(--bad); border-radius: 12px; }
+.alert { margin-bottom: 10px; padding: 13px 16px; background: color-mix(in srgb, var(--bad) 7%, var(--card)); border: 1px solid color-mix(in srgb, var(--bad) 25%, var(--line)); border-left: 4px solid var(--bad); border-radius: 10px; }
 .alert.medium { background: color-mix(in srgb, var(--warn) 7%, var(--card)); border-color: color-mix(in srgb, var(--warn) 25%, var(--line)); border-left-color: var(--warn); }
 .sug { margin-bottom: 10px; padding: 14px; background: var(--bg); border: 1px dashed var(--line); border-radius: 12px; }
 .verify { margin: 14px 0; padding: 14px 16px; border-radius: 12px; font-weight: 600; }
