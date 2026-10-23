@@ -4,8 +4,7 @@ Secure document sharing where the wrong person cannot read a file, and you can p
 
 Node 22 · Express · PostgreSQL · no build step · one codebase that deploys to **Render** and **Vercel**.
 
-| | | |
-|---|---|
+
 | Live URL (Render) | `https://trustvalut.onrender.com`  |
 | Docs | [API.md](API.md) · [THREATS.md](THREATS.md) · [PROMPTS.md](PROMPTS.md) · [WRITEUP.md](WRITEUP.md) |
 
