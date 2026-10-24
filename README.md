@@ -12,16 +12,6 @@ Node 24 · Express · PostgreSQL · no build step · one codebase designed to de
 |---|
 | [API.md](API.md) · [THREATS.md](THREATS.md) · [PROMPTS.md](PROMPTS.md) · [WRITEUP.md](WRITEUP.md) |
 
-## Quick evaluation
-
-1. Open the Render live URL.
-2. Sign in as Pavan using the demo account.
-3. Verify that Pavan can access the **Acme customer contract**.
-4. Sign in as Sree and remove Pavan's access.
-5. Try accessing the document again as Pavan and verify that access is refused.
-6. Sign in as Arun and open **Audit Trail → Refused only** to verify the denied attempt.
-
-This demonstrates document-level access control, immediate revocation, and audit logging.
 
 ## Demo accounts
 
@@ -35,7 +25,7 @@ Demo accounts are seeded when `SEED_DEMO=true`.
 | Viewer — Pavan | `pavan.viewer@trustvault.demo` | `Pavan-Demo-2026!` |
 | Viewer — Sasank | `sasank.viewer@trustvault.demo` | `Sasank-Demo-2026!` |
 
-Seed layout:
+### Seed layout
 
 - Sree owns **Salary letter** — nobody else has access.
 - Sree owns **Acme customer contract** — Pavan has read access.
@@ -43,11 +33,6 @@ Seed layout:
 - Yaswanth owns **Partner drawings** — Sasank has read access.
 - Yaswanth owns **Regulator submission** — nobody else has access.
 
-Good first checks:
-
-- Sign in as Pavan and confirm that you see only the Acme customer contract.
-- As Sree, remove Pavan's access and verify that Pavan's next access attempt fails.
-- As Arun, open **Audit Trail → Refused only** and verify the refused attempt.
 
 > The demo passwords are public by design. **Never run `SEED_DEMO=true` against a system holding real documents.**
 
@@ -275,6 +260,25 @@ The advisor can suggest access decisions based on available information, but it 
 
 Actual authorization remains under the application's normal server-side permission checks.
 
+## AI usage
+
+Claude AI was used as a coding and development assistant during the project.
+
+I used AI for:
+
+- Planning the application architecture and security model.
+- Generating and improving parts of the code.
+- Debugging deployment and runtime issues.
+- Writing and improving tests.
+- Reviewing authorization and security controls.
+- Improving documentation and deployment instructions.
+
+I did not blindly accept generated code. I tested the changes, checked the behavior locally and on the deployed application, and changed or rejected suggestions when they did not work correctly.
+
+One example was an Express export/import issue during deployment. An AI-generated change used a different module export style than the server expected, which caused the application to fail. I identified the mismatch from the error, corrected the import/export, and tested the application again.
+
+AI was used as a development assistant, while the final implementation and testing were reviewed and verified by me.
+
 ## "Take one authorisation check out and run the tests"
 
 The project includes mutation testing through:
@@ -285,16 +289,16 @@ npm run mutation
 
 The mutation script removes or weakens security controls one at a time, including controls around:
 
-- grant lookup
-- permission comparison
-- revoked and expired grants
-- viewer permission ceiling
+- Grant lookup
+- Permission comparison
+- Revoked and expired grants
+- Viewer permission ceiling
 - CSRF protection
-- authentication
-- document ownership
-- audit logging
-- upload validation
-- session handling
+- Authentication
+- Document ownership
+- Audit logging
+- Upload validation
+- Session handling
 
 The purpose is to demonstrate that the security tests fail when important authorization controls are removed.
 
@@ -302,18 +306,18 @@ The purpose is to demonstrate that the security tests fail when important author
 
 The test suite covers areas including:
 
-- document isolation
-- document grants
-- access revocation
-- permission levels
-- session revocation
-- audit integrity
-- audit tampering
-- encrypted document storage
-- upload validation
-- authentication hardening
-- authorization controls
-- concurrency behavior
+- Document isolation
+- Document grants
+- Access revocation
+- Permission levels
+- Session revocation
+- Audit integrity
+- Audit tampering
+- Encrypted document storage
+- Upload validation
+- Authentication hardening
+- Authorization controls
+- Concurrency behavior
 
 Run the main test suite with:
 
@@ -377,7 +381,7 @@ api/index.js
 
 ## Current deployment status
 
-**Working:**
+### Working
 
 - Render production deployment
 - Login and authentication
@@ -391,7 +395,7 @@ api/index.js
 - Document encryption
 - Security tests
 
-**Still being fixed:**
+### Still being fixed
 
 - Vercel authenticated API runtime issue
 
