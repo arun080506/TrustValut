@@ -75,7 +75,7 @@ header {
 }
 
 header[hidden] { display: none; }
-.brand { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; font-size: 17px; letter-spacing: -.4px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; font-size: 30px; letter-spacing: -.4px; }
 .brand-logo {
   display: block;
   width: 34px;
