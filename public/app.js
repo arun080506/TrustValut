@@ -62,7 +62,8 @@
     var top = document.getElementById('top');
     var nav = document.getElementById('nav');
     clear(nav);
-    if (!state.user) { top.hidden = true; return; }
+     if (!state.user) { delete document.body.dataset.role; top.hidden = true; return; }
+    document.body.dataset.role = state.user.role;
     top.hidden = false;
     var links = [['#/', 'Documents'], ['#/shared', 'Shared with me'], ['#/trash', 'Trash']];
     if (state.user.role === 'owner') links.splice(1, 0, ['#/upload', 'Upload']);
