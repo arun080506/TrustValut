@@ -1,4 +1,4 @@
-# TrustVault write-up
+# Vaultora write-up
 
 ## What I built
 
