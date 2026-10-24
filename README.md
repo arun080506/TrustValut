@@ -2,7 +2,7 @@
 
 Secure document sharing where the wrong person cannot read a file, and you can prove who did.
 
-Node 22 · Express · PostgreSQL · no build step · one codebase that deploys to **Render** and **Vercel**.
+Node 24 · Express · PostgreSQL · no build step · one codebase that deploys to **Render** and **Vercel**.
 
 
 | Live URL (Render)|
@@ -73,15 +73,6 @@ You need a PostgreSQL database in both cases. Secrets come from `npm run keys`.
 4. For real use: set `SEED_DEMO` to `false` and create real users from the admin screen (delete or deactivate the demo accounts first).
 
 Render's free Postgres expires after 30 days; use a paid instance for anything lasting. The purge cron job in `render.yaml` needs a paid cron plan; without it run `npm run purge` yourself or use t[...]
-
-### Vercel (serverless) + Neon / Supabase / any Postgres
-
-1. Create a Postgres database (e.g. Neon, free). Copy its connection string (it must include `sslmode=require`).
-2. Vercel → **Add New → Project** → import the repo. Framework preset: *Other*. No build command.
-3. Environment variables (Production): `NODE_ENV=production`, `DATABASE_URL`, `FILE_MASTER_KEY`, `AUDIT_HMAC_KEY`, `CRON_SECRET`, `SEED_DEMO=true` (demo only).
-4. Deploy. The schema is created automatically on the first request (guarded by a Postgres advisory lock so concurrent cold starts are safe).
-
-Vercel limits request bodies to about 4.5 MB, so the default upload cap is 4 MB. `vercel.json` registers a daily cron for the retention purge, authenticated with `CRON_SECRET`.
 
 ### From a clean clone, by hand (any host with Node and Postgres)
 
